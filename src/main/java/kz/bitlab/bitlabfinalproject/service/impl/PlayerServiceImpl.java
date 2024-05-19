@@ -9,9 +9,12 @@ import kz.bitlab.bitlabfinalproject.service.TeamService;
 import kz.bitlab.bitlabfinalproject.service.mapper.PlayerMapper;
 import kz.bitlab.bitlabfinalproject.service.mapper.TeamMapper;
 import lombok.RequiredArgsConstructor;
+import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -21,6 +24,7 @@ public class PlayerServiceImpl implements PlayerService {
     private final TeamService teamService;
     private final TeamMapper teamMapper;
 
+    @Transactional(readOnly = true)
     @Override
     public List<PlayerDto> findAll() {
         final var players = playerRepository.findAll();
@@ -28,46 +32,53 @@ public class PlayerServiceImpl implements PlayerService {
         return playerMapper.toDtoList(players);
     }
 
+    @Transactional(readOnly = true)
     @Override
-    public List<PlayerDto> findByTeamName(String teamName) {
+    public List<PlayerDto> findByTeamName(@NonNull final String teamName) {
         final var players = playerRepository.findByTeamName(teamName);
 
         return playerMapper.toDtoList(players);
     }
 
+    @Transactional(readOnly = true)
     @Override
-    public PlayerDto findByUuid(String uuid) {
+    public PlayerDto findByUuid(@NonNull final String uuid) {
         final var player = playerRepository.findByUuid(uuid)
-                .orElseThrow(() -> new NotFoundException("User not found"));
+                .orElseThrow(() -> new NotFoundException("Player not found"));
 
         return playerMapper.toDto(player);
     }
 
+    @Transactional
     @Override
-    public void create(PlayerDto playerDto, String teamUuid) {
-//        final var teamDto = teamService.findByUuid(teamUuid);
-//        final var team = teamMapper.toEntityFromTeamDataDto(teamDto);
-//        playerDto.setTeam(teamDto);
+    public void create(@NonNull final PlayerDto playerDto, @NonNull final String teamUuid) {
+        final var teamDto = teamService.findByUuid(teamUuid);
+        final var team = teamMapper.toEntityFromTeamDataDto(teamDto);
 
         final var player = playerMapper.toEntity(playerDto);
+        player.setTeam(team);
+        player.setUuid(String.valueOf(UUID.randomUUID()));
 
         playerRepository.save(player);
     }
 
+    @Transactional
     @Override
-    public void update(String uuid, PlayerUpdateDto playerDto) {
+    public void update(@NonNull final String uuid, @NonNull final PlayerUpdateDto playerDto) {
         final var player = playerRepository.findByUuid(uuid)
-                .orElseThrow(() -> new NotFoundException("User not found"));
+                .orElseThrow(() -> new NotFoundException("Player not found"));
 
         playerMapper.updateFromDto(playerDto, player);
+        playerRepository.save(player);
     }
 
+    @Transactional
     @Override
-    public void delete(String uuid) {
+    public void delete(@NonNull final String uuid) {
         playerRepository.findByUuid(uuid).ifPresentOrElse(
                 player -> playerRepository.deleteById(player.getId()),
                 () -> {
-                    throw new NotFoundException("User not found");
+                    throw new NotFoundException("Player not found");
                 }
         );
     }

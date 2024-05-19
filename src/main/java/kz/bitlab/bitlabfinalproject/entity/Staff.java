@@ -2,6 +2,7 @@ package kz.bitlab.bitlabfinalproject.entity;
 
 import jakarta.persistence.*;
 import kz.bitlab.bitlabfinalproject.entity.core.BaseEntity;
+import kz.bitlab.bitlabfinalproject.enums.JobTitle;
 import lombok.*;
 
 @Entity
@@ -24,8 +25,8 @@ public class Staff extends BaseEntity {
     @Column
     private String description;
 
-    @ManyToOne
-    @JoinColumn(name = "job_title_id")
+    @Column(name = "job_title")
+    @Enumerated(EnumType.STRING)
     private JobTitle jobTitle;
 
     @ManyToOne

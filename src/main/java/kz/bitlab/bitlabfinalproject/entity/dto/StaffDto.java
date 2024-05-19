@@ -1,7 +1,7 @@
 package kz.bitlab.bitlabfinalproject.entity.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import kz.bitlab.bitlabfinalproject.entity.JobTitle;
+import kz.bitlab.bitlabfinalproject.enums.JobTitle;
 import lombok.*;
 
 @Getter

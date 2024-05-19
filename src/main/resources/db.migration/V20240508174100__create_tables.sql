@@ -26,22 +26,22 @@ CREATE TABLE IF NOT EXISTS users_roles (
     FOREIGN KEY (role_id) REFERENCES roles(id)
 );
 
-CREATE TABLE IF NOT EXISTS playing_positions (
-    id BIGSERIAL PRIMARY KEY,
-    uuid VARCHAR(255) NOT NULL UNIQUE,
-    name VARCHAR(255) NOT NULL UNIQUE,
-    code VARCHAR(255) NOT NULL UNIQUE,
-    created_at DATE NOT NULL,
-    updated_at DATE
-);
-
-CREATE TABLE IF NOT EXISTS job_titles (
-    id BIGSERIAL PRIMARY KEY NOT NULL,
-    name VARCHAR(255) NOT NULL UNIQUE,
-    uuid VARCHAR(255) NOT NULL UNIQUE,
-    created_at DATE NOT NULL,
-    updated_at DATE
-);
+-- CREATE TABLE IF NOT EXISTS playing_positions (
+--     id BIGSERIAL PRIMARY KEY,
+--     uuid VARCHAR(255) NOT NULL UNIQUE,
+--     name VARCHAR(255) NOT NULL UNIQUE,
+--     code VARCHAR(255) NOT NULL UNIQUE,
+--     created_at DATE NOT NULL,
+--     updated_at DATE
+-- );
+--
+-- CREATE TABLE IF NOT EXISTS job_titles (
+--     id BIGSERIAL PRIMARY KEY NOT NULL,
+--     name VARCHAR(255) NOT NULL UNIQUE,
+--     uuid VARCHAR(255) NOT NULL UNIQUE,
+--     created_at DATE NOT NULL,
+--     updated_at DATE
+-- );
 
 CREATE TABLE IF NOT EXISTS teams (
     id BIGSERIAL PRIMARY KEY NOT NULL,
@@ -62,11 +62,10 @@ CREATE TABLE IF NOT EXISTS staff (
     phone_number VARCHAR(20),
     experience SMALLINT,
     description TEXT,
-    job_title_id INT NOT NULL,
+    job_title VARCHAR(255) NOT NULL,
     team_id INT NOT NULL,
     created_at DATE NOT NULL,
     updated_at DATE,
-    FOREIGN KEY (job_title_id) REFERENCES job_titles(id),
     FOREIGN KEY (team_id) REFERENCES teams(id)
 );
 
@@ -78,10 +77,9 @@ CREATE TABLE IF NOT EXISTS players (
     jersey_number SMALLINT,
     phone_number VARCHAR(20),
     birthdate DATE,
-    playing_position_id INT,
+    playing_position VARCHAR(255),
     team_id INT NOT NULL,
     created_at DATE NOT NULL,
     updated_at DATE,
-    FOREIGN KEY (playing_position_id) REFERENCES playing_positions(id),
     FOREIGN KEY (team_id) REFERENCES teams(id)
 );

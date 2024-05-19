@@ -56,8 +56,8 @@
                         <td th:text="${player.playingPosition}"></td>
                         <td>
                             <div class="d-flex flex-row gap-2">
-                                <a th:href="${team.name}" class="btn btn-success">Edit</a>
-                                <form th:action="'/delete/' + ${team.name}" class="d-flex" method="post">
+                                <a th:href="@{'/players/edit/' + ${player.uuid}}" class="btn btn-success">Edit</a>
+                                <form th:action="@{'/players/delete/' + ${player.uuid}}" class="d-flex" method="post">
                                     <button class="btn btn-danger">Delete</button>
                                 </form>
                             </div>

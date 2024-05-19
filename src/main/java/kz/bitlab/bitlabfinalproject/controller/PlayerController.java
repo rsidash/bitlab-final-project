@@ -13,6 +13,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Objects;
 
 @Controller
 @RequiredArgsConstructor
@@ -77,7 +78,8 @@ public class PlayerController {
 
         playerRestClientService.updatePlayer(uuid, playerUpdateDto);
 
-        return "redirect:/teams/" + playerDto.getTeam().getUuid();
+        return Objects.nonNull(playerDto) && Objects.nonNull(playerDto.getTeam()) ?
+                "redirect:/teams/" + playerDto.getTeam().getUuid() : "redirect:/teams";
     }
 
     @PostMapping("/delete/{uuid}")
@@ -86,6 +88,7 @@ public class PlayerController {
 
         playerRestClientService.deletePlayer(uuid);
 
-        return "redirect:/teams/" + playerDto.getTeam().getUuid();
+        return Objects.nonNull(playerDto) && Objects.nonNull(playerDto.getTeam()) ?
+                "redirect:/teams/" + playerDto.getTeam().getUuid() : "redirect:/teams";
     }
 }

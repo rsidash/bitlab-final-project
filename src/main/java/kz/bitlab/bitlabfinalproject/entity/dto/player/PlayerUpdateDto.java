@@ -1,6 +1,6 @@
 package kz.bitlab.bitlabfinalproject.entity.dto.player;
 
-import kz.bitlab.bitlabfinalproject.entity.PlayingPosition;
+import kz.bitlab.bitlabfinalproject.enums.PlayingPosition;
 import lombok.*;
 
 import java.time.LocalDate;

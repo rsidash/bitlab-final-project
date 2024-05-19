@@ -2,6 +2,7 @@ package kz.bitlab.bitlabfinalproject.entity;
 
 import jakarta.persistence.*;
 import kz.bitlab.bitlabfinalproject.entity.core.BaseEntity;
+import kz.bitlab.bitlabfinalproject.enums.PlayingPosition;
 import lombok.*;
 
 import java.time.LocalDate;
@@ -22,8 +23,8 @@ public class Player extends BaseEntity {
     @Column
     private LocalDate birthdate;
 
-    @ManyToOne
-    @JoinColumn(name = "playing_position_id")
+    @Column(name = "playing_position")
+    @Enumerated(EnumType.STRING)
     private PlayingPosition playingPosition;
 
     @ManyToOne

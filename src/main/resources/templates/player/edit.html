@@ -4,6 +4,69 @@
       layout:decorate="/main.html">
 
 <div layout:fragment="content">
-
+    <div class="mt-3">
+        <h1>Edit player</h1>
+        <div th:if="${errors}">
+            <div th:each="error : ${errors}" class="alert alert-danger alert-dismissible fade show" role="alert">
+                <span th:text="${error.defaultMessage}"></span>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        </div>
+        <form class="mt-3 row g-3" method="post">
+            <div>
+                <h3>Personal Info</h3>
+                <div class="row">
+                    <div class="col-6">
+                        <label for="firstName" class="form-label">First name</label>
+                        <input class="form-control" id="firstName" name="firstName" th:value="${player.firstName}">
+                    </div>
+                    <div class="col-6">
+                        <label for="lastName" class="form-label">Last name</label>
+                        <input class="form-control" id="lastName" name="lastName" th:value="${player.lastName}">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-6">
+                        <label for="phoneNumber" class="form-label">Phone number (optional)</label>
+                        <input type="text" class="form-control" id="phoneNumber" name="phoneNumber" placeholder=""
+                               th:value="${player.phoneNumber}">
+                    </div>
+                    <div class="col-6">
+                        <label for="birthdate" class="form-label">Birthdate</label>
+                        <input type="date" class="form-control" id="birthdate" name="birthdate"
+                               th:value="${player.birthdate}">
+                    </div>
+                </div>
+            </div>
+            <div>
+                <h3>Player Info</h3>
+                <div class="row">
+                    <div class="col-6">
+                        <label class="form-label" for="jerseyNumber">Jersey number (optional)</label>
+                        <select class="form-select" id="jerseyNumber" name="jerseyNumber">
+                            <option selected>Choose...</option>
+                            <option th:each="number : ${#numbers.sequence(1, 99)}"
+                                    th:value="${number}"
+                                    th:text="${number}"
+                                    th:selected="${player != null and player.jerseyNumber == number}"></option>
+                        </select>
+                    </div>
+                    <div class="col-6">
+                        <label class="form-label" for="playingPosition">Playing position (optional)</label>
+                        <select class="form-select" id="playingPosition" name="playingPosition">
+                            <option value="" disabled selected>Choose...</option>
+                            <option th:each="position : ${T(kz.bitlab.bitlabfinalproject.enums.PlayingPosition).values()}"
+                                    th:value="${position}"
+                                    th:text="${position}"
+                                    th:selected="${position == player.playingPosition}"></option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12">
+                <button type="submit" class="btn btn-primary">Update</button>
+            </div>
+        </form>
+    </div>
 </div>
 </html>

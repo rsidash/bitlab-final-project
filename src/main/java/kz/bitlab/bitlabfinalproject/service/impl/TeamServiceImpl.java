@@ -8,9 +8,10 @@ import kz.bitlab.bitlabfinalproject.repository.TeamRepository;
 import kz.bitlab.bitlabfinalproject.service.TeamService;
 import kz.bitlab.bitlabfinalproject.service.UserService;
 import kz.bitlab.bitlabfinalproject.service.mapper.TeamMapper;
-import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
+import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -21,6 +22,7 @@ public class TeamServiceImpl implements TeamService {
     private final TeamMapper teamMapper;
     private final UserService userService;
 
+    @Transactional(readOnly = true)
     @Override
     public List<TeamDto> findAll() {
         final var teams = teamRepository.findAll();
@@ -28,6 +30,7 @@ public class TeamServiceImpl implements TeamService {
         return teamMapper.toDtoList(teams);
     }
 
+    @Transactional(readOnly = true)
     @Override
     public List<TeamDto> findByOwner(@NonNull final Long userId) {
         final var teams = teamRepository.findAllByUserId(userId);
@@ -35,6 +38,7 @@ public class TeamServiceImpl implements TeamService {
         return teamMapper.toDtoList(teams);
     }
 
+    @Transactional(readOnly = true)
     @Override
     public TeamDataDto findById(@NonNull final Long id) {
         final var team = teamRepository.findById(id).orElseThrow(
@@ -44,6 +48,7 @@ public class TeamServiceImpl implements TeamService {
         return teamMapper.toTeamDataDto(team);
     }
 
+    @Transactional(readOnly = true)
     @Override
     public TeamDataDto findByUuid(@NonNull final String uuid) {
         final var team = teamRepository.findByUuid(uuid).orElseThrow(
@@ -53,6 +58,7 @@ public class TeamServiceImpl implements TeamService {
         return teamMapper.toTeamDataDto(team);
     }
 
+    @Transactional(readOnly = true)
     @Override
     public TeamDataDto findByName(@NonNull final String name) {
         final var team = teamRepository.findByName(name).orElseThrow(
@@ -62,6 +68,7 @@ public class TeamServiceImpl implements TeamService {
         return teamMapper.toTeamDataDto(team);
     }
 
+    @Transactional
     @Override
     public TeamDto create(@NonNull final TeamDto teamDto) {
         // FIXME: add current user as team owner
@@ -75,6 +82,7 @@ public class TeamServiceImpl implements TeamService {
         return teamMapper.toDto(savedTeam);
     }
 
+    @Transactional
     @Override
     public TeamDto update(@NonNull final String uuid, @NonNull final TeamUpdateDto teamDto) {
         final var existingTeam = teamRepository.findByUuid(uuid)
@@ -86,6 +94,7 @@ public class TeamServiceImpl implements TeamService {
         return teamMapper.toDto(updatedTeam);
     }
 
+    @Transactional
     @Override
     public void delete(@NonNull final String uuid) {
         teamRepository.findByUuid(uuid).ifPresentOrElse(

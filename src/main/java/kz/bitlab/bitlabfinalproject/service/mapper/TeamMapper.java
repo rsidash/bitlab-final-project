@@ -23,6 +23,8 @@ public interface TeamMapper {
 
     Team toEntity(TeamDto teamDto);
 
+    Team toEntityFromTeamDataDto(TeamDataDto teamDataDto);
+
     List<TeamDto> toDtoList(List<Team> teams);
 
     void updateFromDto(TeamUpdateDto dto, @MappingTarget Team team);

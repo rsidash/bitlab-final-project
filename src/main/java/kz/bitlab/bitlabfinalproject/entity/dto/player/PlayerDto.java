@@ -2,8 +2,7 @@ package kz.bitlab.bitlabfinalproject.entity.dto.player;
 
 
 import jakarta.validation.constraints.NotEmpty;
-import kz.bitlab.bitlabfinalproject.entity.PlayingPosition;
-import kz.bitlab.bitlabfinalproject.entity.Team;
+import kz.bitlab.bitlabfinalproject.enums.PlayingPosition;
 import kz.bitlab.bitlabfinalproject.entity.dto.team.TeamDto;
 import lombok.*;
 
