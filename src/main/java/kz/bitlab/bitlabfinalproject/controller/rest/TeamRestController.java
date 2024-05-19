@@ -5,9 +5,9 @@ import kz.bitlab.bitlabfinalproject.entity.dto.team.TeamDto;
 import kz.bitlab.bitlabfinalproject.entity.dto.team.TeamUpdateDto;
 import kz.bitlab.bitlabfinalproject.exception.NotFoundException;
 import kz.bitlab.bitlabfinalproject.service.TeamService;
-import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.lang.NonNull;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 

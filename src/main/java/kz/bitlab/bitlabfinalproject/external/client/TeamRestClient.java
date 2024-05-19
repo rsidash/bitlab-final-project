@@ -4,9 +4,9 @@ import jakarta.annotation.Nullable;
 import kz.bitlab.bitlabfinalproject.entity.dto.team.TeamDataDto;
 import kz.bitlab.bitlabfinalproject.entity.dto.team.TeamDto;
 import kz.bitlab.bitlabfinalproject.entity.dto.team.TeamUpdateDto;
-import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
