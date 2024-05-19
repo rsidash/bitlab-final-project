@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="/main.html">
+
+<div layout:fragment="content">
+    <div class="d-none d-lg-flex flex-wrap justify-content-between mt-3" th:each="team : ${teams}">
+        <div class="card m-2 text-start text-break" style="width: 12rem;">
+            <div class="card-body">
+                <h5 class="card-title" th:text="${team.name}"></h5>
+                <p class="card-text text-start" th:text="${team.description}"></p>
+                <a th:href="@{'/teams/' + ${team.uuid}}" class="btn btn-primary">Show more</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+</html>
