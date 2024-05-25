@@ -1,5 +1,6 @@
 package kz.bitlab.bitlabfinalproject.service.impl;
 
+import kz.bitlab.bitlabfinalproject.entity.Team;
 import kz.bitlab.bitlabfinalproject.entity.dto.team.TeamDataDto;
 import kz.bitlab.bitlabfinalproject.entity.dto.team.TeamDto;
 import kz.bitlab.bitlabfinalproject.entity.dto.team.TeamUpdateDto;
@@ -56,6 +57,13 @@ public class TeamServiceImpl implements TeamService {
         );
 
         return teamMapper.toTeamDataDto(team);
+    }
+
+    @Override
+    public Team findEntityByUuid(@NonNull final String uuid) {
+        return teamRepository.findByUuid(uuid).orElseThrow(
+                () -> new NotFoundException("Team not found")
+        );
     }
 
     @Transactional(readOnly = true)

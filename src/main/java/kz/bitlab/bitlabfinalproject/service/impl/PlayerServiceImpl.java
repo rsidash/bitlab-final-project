@@ -7,14 +7,12 @@ import kz.bitlab.bitlabfinalproject.repository.PlayerRepository;
 import kz.bitlab.bitlabfinalproject.service.PlayerService;
 import kz.bitlab.bitlabfinalproject.service.TeamService;
 import kz.bitlab.bitlabfinalproject.service.mapper.PlayerMapper;
-import kz.bitlab.bitlabfinalproject.service.mapper.TeamMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -22,7 +20,6 @@ public class PlayerServiceImpl implements PlayerService {
     private final PlayerRepository playerRepository;
     private final PlayerMapper playerMapper;
     private final TeamService teamService;
-    private final TeamMapper teamMapper;
 
     @Transactional(readOnly = true)
     @Override
@@ -35,7 +32,7 @@ public class PlayerServiceImpl implements PlayerService {
     @Transactional(readOnly = true)
     @Override
     public List<PlayerDto> findByTeamName(@NonNull final String teamName) {
-        final var players = playerRepository.findByTeamName(teamName);
+        final var players = playerRepository.findByTeamNameOrderByLastName(teamName);
 
         return playerMapper.toDtoList(players);
     }
@@ -52,12 +49,10 @@ public class PlayerServiceImpl implements PlayerService {
     @Transactional
     @Override
     public void create(@NonNull final PlayerDto playerDto, @NonNull final String teamUuid) {
-        final var teamDto = teamService.findByUuid(teamUuid);
-        final var team = teamMapper.toEntityFromTeamDataDto(teamDto);
+        final var team = teamService.findEntityByUuid(teamUuid);
 
         final var player = playerMapper.toEntity(playerDto);
         player.setTeam(team);
-        player.setUuid(String.valueOf(UUID.randomUUID()));
 
         playerRepository.save(player);
     }

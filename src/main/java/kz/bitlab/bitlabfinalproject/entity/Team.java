@@ -4,11 +4,10 @@ import jakarta.persistence.*;
 import kz.bitlab.bitlabfinalproject.entity.core.BaseEntity;
 import kz.bitlab.bitlabfinalproject.entity.security.User;
 import lombok.*;
-import lombok.experimental.Accessors;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
-import java.util.Set;
+import java.util.List;
 
 @Entity
 @Table(name = "teams")
@@ -30,5 +29,5 @@ public class Team extends BaseEntity {
 
     @OneToMany(mappedBy = "team", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @OnDelete(action = OnDeleteAction.CASCADE)
-    private Set<Player> players;
+    private List<Player> players;
 }

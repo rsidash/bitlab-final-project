@@ -42,7 +42,7 @@
                     <div class="col-6">
                         <label class="form-label" for="jerseyNumber">Jersey number (optional)</label>
                         <select class="form-select" id="jerseyNumber" name="jerseyNumber">
-                            <option selected>Choose...</option>
+                            <option selected disabled hidden>Choose...</option>
                             <option th:each="number : ${#numbers.sequence(1, 99)}" th:value="${number}"
                                     th:text="${number}"></option>
                         </select>
@@ -50,10 +50,10 @@
                     <div class="col-6">
                         <label class="form-label" for="playingPosition">Playing position (optional)</label>
                         <select class="form-select" id="playingPosition" name="playingPosition">
-                            <option selected>Choose...</option>
+                            <option selected disabled hidden>Choose...</option>
                             <option th:each="position : ${T(kz.bitlab.bitlabfinalproject.enums.PlayingPosition).values()}"
                                     th:value="${position}"
-                                    th:text="${position}"></option>
+                                    th:text="${position.getTitle()}"></option>
                         </select>
                     </div>
                 </div>

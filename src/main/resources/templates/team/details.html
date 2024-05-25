@@ -44,16 +44,18 @@
                         <th scope="col">First name</th>
                         <th scope="col">Jersey number</th>
                         <th scope="col">Playing position</th>
+                        <th scope="col">Age</th>
                         <th scope="col">Actions (Edit / Delete)</th>
                     </tr>
                     </thead>
                     <tbody>
                     <tr th:each="player, iterStat : ${team.getPlayers()}">
                         <td th:text="${iterStat.count}"></td>
-                        <td th:text="${player.firstName}"></td>
                         <td th:text="${player.lastName}"></td>
+                        <td th:text="${player.firstName}"></td>
                         <td th:text="${player.jerseyNumber}"></td>
                         <td th:text="${player.playingPosition}"></td>
+                        <td th:text="${player.getAge()}"></td>
                         <td>
                             <div class="d-flex flex-row gap-2">
                                 <a th:href="@{'/players/edit/' + ${player.uuid}}" class="btn btn-success">Edit</a>

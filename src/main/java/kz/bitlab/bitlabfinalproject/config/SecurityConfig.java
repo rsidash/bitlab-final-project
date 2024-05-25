@@ -1,7 +1,7 @@
 package kz.bitlab.bitlabfinalproject.config;
 
 import kz.bitlab.bitlabfinalproject.service.UserService;
-//import kz.bitlab.bitlabfinalproject.service.impl.UserServiceImpl;
+import kz.bitlab.bitlabfinalproject.service.impl.UserServiceImpl;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -17,40 +17,41 @@ import org.springframework.security.web.SecurityFilterChain;
 @EnableWebSecurity
 @EnableMethodSecurity
 public class SecurityConfig {
-//    @Bean
-//    public UserService userService() {
-//        return new UserServiceImpl();
-//    }
+    @Bean
+    public UserService userService() {
+        return new UserServiceImpl();
+    }
 
-//    @Bean
-//    public PasswordEncoder passwordEncoder() {
-//        return new BCryptPasswordEncoder();
-//    }
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-//        AuthenticationManagerBuilder authenticationManagerBuilder = http
-//                .getSharedObject(AuthenticationManagerBuilder.class);
-//        authenticationManagerBuilder.userDetailsService(userService()).passwordEncoder(passwordEncoder());
+        AuthenticationManagerBuilder authenticationManagerBuilder = http
+                .getSharedObject(AuthenticationManagerBuilder.class);
+        authenticationManagerBuilder.userDetailsService(userService()).passwordEncoder(passwordEncoder());
 
-//        http.authorizeHttpRequests(
-//                req -> req.requestMatchers("/css/**", "/js/**", "/").permitAll()
-//        );
+        http.authorizeHttpRequests(
+                req -> req.requestMatchers("/css/**", "/js/**").permitAll()
+        );
 
-//        http.exceptionHandling(
-//                exception -> exception.accessDeniedPage("/forbidden")
-//        );
-//
-//        http.formLogin(login -> login
-//                        .usernameParameter("username")
-//                        .passwordParameter("password")
-//                        .defaultSuccessUrl("/"))
-//                .logout(logout -> logout.logoutUrl("/logout").logoutSuccessUrl("/"))
-//                .csrf(AbstractHttpConfigurer::disable);
+
+        http.exceptionHandling(
+                exception -> exception.accessDeniedPage("/forbidden")
+        );
+
+        http.formLogin(login -> login
+                        .usernameParameter("username")
+                        .passwordParameter("password")
+                        .defaultSuccessUrl("/"))
+                .logout(logout -> logout.logoutUrl("/logout").logoutSuccessUrl("/"))
+                .csrf(AbstractHttpConfigurer::disable);
 
         http
                 .csrf(AbstractHttpConfigurer::disable)
-                .authorizeHttpRequests(request -> request.anyRequest().permitAll());
+                .authorizeHttpRequests(request -> request.anyRequest().permitAll()/*.authenticated()*/);
 
         return http.build();
     }

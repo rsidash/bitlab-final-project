@@ -13,7 +13,7 @@ import java.time.LocalDate;
 public class PlayerUpdateDto {
     private String firstName;
     private String lastName;
-    private byte jerseyNumber;
+    private Byte jerseyNumber;
     private String phoneNumber;
     private LocalDate birthdate;
     private PlayingPosition playingPosition;

@@ -1,5 +1,6 @@
 package kz.bitlab.bitlabfinalproject.service;
 
+import kz.bitlab.bitlabfinalproject.entity.Team;
 import kz.bitlab.bitlabfinalproject.entity.dto.team.TeamDataDto;
 import kz.bitlab.bitlabfinalproject.entity.dto.team.TeamDto;
 import kz.bitlab.bitlabfinalproject.entity.dto.team.TeamUpdateDto;
@@ -11,6 +12,7 @@ public interface TeamService {
     List<TeamDto> findByOwner(Long userId);
     TeamDataDto findById(Long id);
     TeamDataDto findByUuid(String uuid);
+    Team findEntityByUuid(String uuid);
     TeamDataDto findByName(String name);
     TeamDto create(TeamDto teamDto);
     TeamDto update(String uuid, TeamUpdateDto teamDto);

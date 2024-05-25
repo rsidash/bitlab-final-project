@@ -44,7 +44,8 @@ public class PlayerRestController {
     }
 
     @PostMapping("/players/update/{uuid}")
-    public void update(@PathVariable("uuid") @NonNull final String uuid, @RequestBody @NonNull final PlayerUpdateDto playerUpdateDto) {
+    public void update(@PathVariable("uuid") @NonNull final String uuid,
+                       @RequestBody @NonNull final PlayerUpdateDto playerUpdateDto) {
         try {
             playerService.update(uuid, playerUpdateDto);
         } catch (NotFoundException exception) {
@@ -53,7 +54,7 @@ public class PlayerRestController {
     }
 
     @DeleteMapping("/players/{uuid}")
-    public void delete(@PathVariable("uuid") @NonNull String uuid){
+    public void delete(@PathVariable("uuid") @NonNull String uuid) {
         try {
             playerService.delete(uuid);
         } catch (NotFoundException exception) {

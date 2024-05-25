@@ -7,7 +7,8 @@ import kz.bitlab.bitlabfinalproject.entity.dto.player.PlayerDto;
 import kz.bitlab.bitlabfinalproject.entity.security.dto.UserDto;
 import lombok.*;
 
-import java.util.Set;
+import java.util.List;
+import java.util.UUID;
 
 @Getter
 @Setter
@@ -15,7 +16,7 @@ import java.util.Set;
 @AllArgsConstructor
 @RequiredArgsConstructor
 public class TeamDataDto {
-    private String uuid;
+    private String uuid = String.valueOf(UUID.randomUUID());;
     @JsonProperty("name")
     @NotEmpty(message = "Name cannot be empty")
     private String name;
@@ -25,5 +26,5 @@ public class TeamDataDto {
     @NotNull(message = "User cannot be empty")
     private UserDto user;
     @JsonProperty("players")
-    private Set<PlayerDto> players;
+    private List<PlayerDto> players;
 }

@@ -44,17 +44,17 @@
                     <div class="col-6">
                         <label class="form-label" for="jerseyNumber">Jersey number (optional)</label>
                         <select class="form-select" id="jerseyNumber" name="jerseyNumber">
-                            <option selected>Choose...</option>
+                            <option selected disabled hidden>Choose...</option>
                             <option th:each="number : ${#numbers.sequence(1, 99)}"
                                     th:value="${number}"
                                     th:text="${number}"
-                                    th:selected="${player != null and player.jerseyNumber == number}"></option>
+                                    th:selected="${player != null and number.equals(player.jerseyNumber)}"></option>
                         </select>
                     </div>
                     <div class="col-6">
                         <label class="form-label" for="playingPosition">Playing position (optional)</label>
                         <select class="form-select" id="playingPosition" name="playingPosition">
-                            <option value="" disabled selected>Choose...</option>
+                            <option selected disabled hidden>Choose...</option>
                             <option th:each="position : ${T(kz.bitlab.bitlabfinalproject.enums.PlayingPosition).values()}"
                                     th:value="${position}"
                                     th:text="${position}"

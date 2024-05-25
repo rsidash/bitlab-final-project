@@ -8,10 +8,10 @@ import kz.bitlab.bitlabfinalproject.entity.security.dto.UserUpdatePasswordDto;
 import org.springframework.security.core.userdetails.UserDetailsService;
 
 public interface UserService extends UserDetailsService {
-//    UserDto getCurrentUser();
-//    UserDto create(UserCreateDto userCreateDto);
-//    UserDto update(Long id, UserUpdateDto userUpdateDto);
-//    UserDto updatePassword(Long id, UserUpdatePasswordDto userUpdatePasswordDto);
-//    void delete(Long id);
+    UserDto getCurrentUser();
+    UserDto create(UserCreateDto userCreateDto);
+    UserDto update(Long id, UserUpdateDto userUpdateDto);
+    UserDto updatePassword(Long id, UserUpdatePasswordDto userUpdatePasswordDto);
+    void delete(Long id);
     User getUserById(Long id);
 }

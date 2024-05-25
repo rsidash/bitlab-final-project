@@ -11,13 +11,17 @@ import java.time.LocalDate;
 @Table(name = "players")
 @Getter
 @Setter
+@Builder
+@NoArgsConstructor(force = true)
+@AllArgsConstructor
+@EqualsAndHashCode(callSuper = true)
 public class Player extends BaseEntity {
     @Column(name = "first_name", nullable = false)
     private String firstName;
     @Column(name = "last_name", nullable = false)
     private String lastName;
     @Column(name = "jersey_number")
-    private byte jerseyNumber;
+    private Byte jerseyNumber;
     @Column(name = "phone_number")
     private String phoneNumber;
     @Column

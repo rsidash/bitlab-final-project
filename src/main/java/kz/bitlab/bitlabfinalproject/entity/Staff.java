@@ -21,7 +21,7 @@ public class Staff extends BaseEntity {
     @Column(name = "phone_number")
     private String phoneNumber;
     @Column
-    private byte experience;
+    private Byte experience;
     @Column
     private String description;
 
