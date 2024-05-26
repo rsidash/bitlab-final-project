@@ -4,6 +4,62 @@
       layout:decorate="/main.html">
 
 <div layout:fragment="content">
-
+    <div class="mt-3">
+        <h1>Add new staff</h1>
+        <div th:if="${errors}">
+            <div th:each="error : ${errors}" class="alert alert-danger alert-dismissible fade show" role="alert">
+                <span th:text="${error.defaultMessage}"></span>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        </div>
+        <form class="mt-3 row g-3" method="post">
+            <div>
+                <h3>Personal Info</h3>
+                <div class="row">
+                    <div class="col-6">
+                        <label for="firstName" class="form-label">First name</label>
+                        <input class="form-control" id="firstName" name="firstName">
+                    </div>
+                    <div class="col-6">
+                        <label for="lastName" class="form-label">Last name</label>
+                        <input class="form-control" id="lastName" name="lastName">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-6">
+                        <label for="phoneNumber" class="form-label">Phone number (optional)</label>
+                        <input type="text" class="form-control" id="phoneNumber" name="phoneNumber" placeholder="">
+                    </div>
+                </div>
+            </div>
+            <div>
+                <h3>Staff Info</h3>
+                <div class="row">
+                    <div class="col-6">
+                        <label class="form-label" for="jobTitle">Job title</label>
+                        <select class="form-select" id="jobTitle" name="jobTitle">
+                            <option selected disabled hidden>Choose...</option>
+                            <option th:each="job : ${T(kz.bitlab.bitlabfinalproject.enums.JobTitle).values()}"
+                                    th:value="${job}"
+                                    th:text="${job.getTitle()}"></option>
+                        </select>
+                    </div>
+                    <div class="col-6">
+                        <label class="form-label" for="experience">Experience</label>
+                        <input type="number" class="form-control" id="experience" name="experience" placeholder="" min="0" max="100">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <label for="description" class="form-label">Description</label>
+                        <textarea class="form-control" id="description" name="description" rows="3"></textarea>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12">
+                <button type="submit" class="btn btn-primary">Add staff</button>
+            </div>
+        </form>
+    </div>
 </div>
 </html>

@@ -4,6 +4,18 @@
       layout:decorate="/main.html">
 
 <div layout:fragment="content">
-
+    <div class="d-none d-lg-flex flex-wrap justify-content-start mt-3">
+        <div class="card m-2 text-start text-break text-bg-light" style="width: 20rem;" th:each="staff : ${staffList}">
+            <div class="card-header">
+                <p class="card-text text-start" th:text="${staff.team.name}"></p>
+            </div>
+            <div class="card-body">
+                <h5 class="card-title" th:text="${staff.getFullName()}"></h5>
+                <p class="card-text text-start" th:text="'Job title: ' + ${staff.jobTitle.getTitle()}"></p>
+                <p class="card-text text-start" th:text="'Experience: ' + ${staff.experience}"></p>
+                <p class="card-text text-start" th:text="'Phone number: ' + ${staff.phoneNumber}"></p>
+            </div>
+        </div>
+    </div>
 </div>
 </html>

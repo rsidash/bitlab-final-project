@@ -1,6 +1,7 @@
-package kz.bitlab.bitlabfinalproject.entity.dto;
+package kz.bitlab.bitlabfinalproject.entity.dto.staff;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import kz.bitlab.bitlabfinalproject.entity.dto.team.TeamDto;
 import kz.bitlab.bitlabfinalproject.enums.JobTitle;
 import lombok.*;
 
@@ -15,7 +16,12 @@ public class StaffDto {
     private String firstName;
     private String lastName;
     private String phoneNumber;
-    private byte experience;
+    private Byte experience;
     private String description;
     private JobTitle jobTitle;
+    private TeamDto team;
+
+    public String getFullName() {
+        return firstName + " " + lastName;
+    }
 }

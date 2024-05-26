@@ -15,4 +15,8 @@ public class UserDto {
     private String firstName;
     private String lastName;
     private List<Role> roles;
+
+    public String getFullName() {
+        return lastName + " " + firstName;
+    }
 }

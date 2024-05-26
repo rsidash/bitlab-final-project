@@ -4,6 +4,8 @@ import jakarta.validation.Valid;
 import kz.bitlab.bitlabfinalproject.entity.dto.team.TeamDataDto;
 import kz.bitlab.bitlabfinalproject.entity.dto.team.TeamDto;
 import kz.bitlab.bitlabfinalproject.entity.dto.team.TeamUpdateDto;
+import kz.bitlab.bitlabfinalproject.enums.JobTitle;
+import kz.bitlab.bitlabfinalproject.external.service.StaffRestClientService;
 import kz.bitlab.bitlabfinalproject.external.service.TeamRestClientService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.lang.NonNull;
@@ -19,10 +21,11 @@ import java.util.List;
 @RequestMapping("/teams")
 public class TeamController {
     private final TeamRestClientService teamRestClientService;
+    private final StaffRestClientService staffRestClientService;
 
     @GetMapping
     public String getAllTeams(Model model) {
-        List<TeamDto> teams = teamRestClientService.getAllTeams();
+        final var teams = teamRestClientService.getAllTeams();
         model.addAttribute("teams", teams);
 
         return "team/index";
@@ -30,8 +33,14 @@ public class TeamController {
 
     @GetMapping("/{uuid}")
     public String findByUuid(Model model, @PathVariable("uuid") @NonNull final String uuid) {
-        TeamDataDto team = teamRestClientService.getTeamByUuid(uuid);
+        final var team = teamRestClientService.getTeamByUuid(uuid);
         model.addAttribute("team", team);
+
+        final var coaches = staffRestClientService.getAllTeamStaffByJobTitle(uuid, JobTitle.COACH);
+        final var managers = staffRestClientService.getAllTeamStaffByJobTitle(uuid, JobTitle.MANAGER);
+
+        model.addAttribute("coaches", coaches);
+        model.addAttribute("managers", managers);
 
         return "team/details";
     }

@@ -72,37 +72,55 @@
         <div class="tab-pane fade" id="staff" role="tabpanel" aria-labelledby="staff-tab">
             <div class="d-flex flex-column">
                 <div class="mb-3">
-                    <a th:href="@{'/staff/create'}" class="btn btn-primary">Add staff</a>
+                    <a th:href="@{'/staff/add/' + ${team.uuid}}" class="btn btn-primary">Add staff</a>
                 </div>
                 <div>
                     <h5>Founder:</h5>
-                    <div class="card m-2 text-start text-break" style="width: 12rem;">
+                    <div class="card m-2 text-start text-break text-bg-light" style="width: 20rem;">
                         <div class="card-body">
-                            <h5 class="card-title" th:text="${team.user.firstName + ' ' + team.user.lastName}"></h5>
+                            <h5 class="card-title" th:text="${team.user.getFullName()}"></h5>
                             <p class="card-text text-start" th:text="${team.name}"></p>
                         </div>
                     </div>
                 </div>
                 <div class="mt-2">
                     <h5>Managers:</h5>
-                    <div class="d-none d-lg-flex flex-wrap justify-content-between mt-3" th:each="team : ${teams}">
-                        <div class="card m-2 text-start text-break" style="width: 12rem;">
+                    <div class="d-none d-lg-flex flex-wrap justify-content-start mt-3">
+                        <div class="card m-2 text-start text-break text-bg-light" style="width: 20rem;" th:each="manager : ${managers}">
                             <div class="card-body">
-                                <h5 class="card-title" th:text="${team.name}"></h5>
-                                <p class="card-text text-start" th:text="${team.description}"></p>
-                                <a th:href="@{'/teams/' + ${team.uuid}}" class="btn btn-primary">Show more</a>
+                                <h5 class="card-title" th:text="${manager.getFullName()}"></h5>
+                                <p class="card-text text-start" th:text="'Experience, years: ' + ${manager.experience}"></p>
+                                <p class="card-text text-start" th:text="'Phonenumber: ' + ${manager.phoneNumber}"></p>
+                                <p class="card-text text-start" th:text="'Description: ' + ${manager.description}"></p>
+                            </div>
+                            <div class="card-footer">
+                                <div class="d-flex flex-row gap-2 justify-content-end">
+                                    <a th:href="@{'/staff/edit/' + ${manager.uuid}}" class="btn btn-success">Edit</a>
+                                    <form th:action="'/staff/delete/' + ${manager.uuid}" class="d-flex" method="post">
+                                        <button class="btn btn-danger">Delete</button>
+                                    </form>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="mt-2">
                     <h5>Coaches:</h5>
-                    <div class="d-none d-lg-flex flex-wrap justify-content-between mt-3" th:each="team : ${teams}">
-                        <div class="card m-2 text-start text-break" style="width: 12rem;">
+                    <div class="d-none d-lg-flex flex-wrap justify-content-start mt-3">
+                        <div class="card m-2 text-start text-break text-bg-light" style="width: 20rem;" th:each="coach : ${coaches}">
                             <div class="card-body">
-                                <h5 class="card-title" th:text="${team.name}"></h5>
-                                <p class="card-text text-start" th:text="${team.description}"></p>
-                                <a th:href="@{'/teams/' + ${team.name}}" class="btn btn-primary">Show more</a>
+                                <h5 class="card-title" th:text="${coach.getFullName()}"></h5>
+                                <p class="card-text text-start" th:text="'Experience, years: ' + ${coach.experience}"></p>
+                                <p class="card-text text-start" th:text="'Phonenumber: ' + ${coach.phoneNumber}"></p>
+                                <p class="card-text text-start" th:text="'Description: ' + ${coach.description}"></p>
+                            </div>
+                            <div class="card-footer">
+                                <div class="d-flex flex-row gap-2 justify-content-end">
+                                    <a th:href="@{'/staff/edit/' + ${coach.uuid}}" class="btn btn-success">Edit</a>
+                                    <form th:action="'/staff/delete/' + ${coach.uuid}" class="d-flex" method="post">
+                                        <button class="btn btn-danger">Delete</button>
+                                    </form>
+                                </div>
                             </div>
                         </div>
                     </div>

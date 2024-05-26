@@ -1,7 +1,8 @@
 package kz.bitlab.bitlabfinalproject.service.mapper;
 
 import kz.bitlab.bitlabfinalproject.entity.Staff;
-import kz.bitlab.bitlabfinalproject.entity.dto.StaffDto;
+import kz.bitlab.bitlabfinalproject.entity.dto.staff.StaffDto;
+import kz.bitlab.bitlabfinalproject.entity.dto.staff.StaffUpdateDto;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;
 
@@ -16,5 +17,5 @@ public interface StaffMapper {
 
     List<StaffDto> toDtoList(List<Staff> staffList);
 
-    void updateFromDto(StaffDto dto, @MappingTarget Staff staff);
+    void updateFromDto(StaffUpdateDto dto, @MappingTarget Staff staff);
 }

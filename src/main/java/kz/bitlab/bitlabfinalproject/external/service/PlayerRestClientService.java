@@ -48,7 +48,7 @@ public class PlayerRestClientService {
         try {
             return playerRestClient.getPlayerByUuid(uuid);
         } catch (HttpClientErrorException e) {
-            log.error("Team not found", e);
+            log.error("Player not found", e);
         } catch (Exception e) {
             log.error("Service unavailable", e);
         }

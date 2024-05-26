@@ -4,8 +4,8 @@
       layout:decorate="/main.html">
 
 <div layout:fragment="content">
-    <div class="d-none d-lg-flex flex-wrap justify-content-between mt-3" th:each="player : ${players}">
-        <div class="card m-2 text-start text-break" style="width: 20rem;">
+    <div class="d-none d-lg-flex flex-wrap justify-content-start mt-3">
+        <div class="card m-2 text-start text-break text-bg-light" style="width: 20rem;" th:each="player : ${players}">
             <div class="card-header">
                 <p class="card-text text-start" th:text="${player.team.name}"></p>
             </div>

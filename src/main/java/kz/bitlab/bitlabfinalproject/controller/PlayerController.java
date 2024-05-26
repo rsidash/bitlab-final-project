@@ -4,7 +4,6 @@ import jakarta.validation.Valid;
 import kz.bitlab.bitlabfinalproject.entity.dto.player.PlayerDto;
 import kz.bitlab.bitlabfinalproject.entity.dto.player.PlayerUpdateDto;
 import kz.bitlab.bitlabfinalproject.external.service.PlayerRestClientService;
-import kz.bitlab.bitlabfinalproject.external.service.TeamRestClientService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Controller;
@@ -20,7 +19,6 @@ import java.util.Objects;
 @RequestMapping("/players")
 public class PlayerController {
     private final PlayerRestClientService playerRestClientService;
-    private final TeamRestClientService teamRestClientService;
 
     @GetMapping
     public String getAllPlayers(Model model) {
@@ -29,14 +27,6 @@ public class PlayerController {
 
         return "player/index";
     }
-
-//    @GetMapping("/{uuid}")
-//    public String findByUuid(Model model, @PathVariable("uuid") @NonNull final String uuid) {
-//        PlayerDto player = playerRestClientService.getPlayerByUuid(uuid);
-//        model.addAttribute("player", player);
-//
-//        return "player/details";
-//    }
 
     @GetMapping("/add/{teamUuid}")
     public String showCreatePage(@PathVariable("teamUuid") @NonNull final String teamUuid, Model model) {
@@ -66,8 +56,8 @@ public class PlayerController {
     }
 
     @PostMapping("/edit/{uuid}")
-    public String editTeam(@PathVariable("uuid") String uuid, @ModelAttribute PlayerUpdateDto playerUpdateDto,
-                           BindingResult result, Model model) {
+    public String edit(@PathVariable("uuid") String uuid, @ModelAttribute PlayerUpdateDto playerUpdateDto,
+                       BindingResult result, Model model) {
         if (result.hasErrors()) {
             model.addAttribute("errors", result.getAllErrors());
             model.addAttribute("player", playerUpdateDto);
