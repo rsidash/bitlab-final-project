@@ -3,6 +3,7 @@ package kz.bitlab.bitlabfinalproject.external.client;
 import jakarta.annotation.Nullable;
 import kz.bitlab.bitlabfinalproject.entity.dto.player.PlayerDto;
 import kz.bitlab.bitlabfinalproject.entity.dto.player.PlayerUpdateDto;
+import kz.bitlab.bitlabfinalproject.enums.PlayingPosition;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.lang.NonNull;
@@ -22,10 +23,10 @@ public class PlayerRestClient {
     @Value("${api.url}")
     private String url;
 
-    public List<PlayerDto> getAllPlayers() {
+    public List<PlayerDto> getAllPlayers(final String team, final PlayingPosition position) {
         final var players = restTemplate.getForObject(
-                url + "/players",
-                PlayerDto[].class
+                url + "/players?team={team}&position={position}",
+                PlayerDto[].class, team, position
         );
 
         if (Objects.nonNull(players)) {

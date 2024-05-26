@@ -4,6 +4,32 @@
       layout:decorate="/main.html">
 
 <div layout:fragment="content">
+    <form action="#" method="get" class="d-flex align-items-center gap-2 row mt-3">
+        <div class="col-2">
+            <label class="form-label d-none" for="teamFilter">Choose team:</label>
+            <select class="form-select" id="teamFilter" name="team">
+                <option value="">All teams</option>
+                <option th:each="teamName : ${teamNames}"
+                        th:value="${teamName}"
+                        th:text="${teamName}"></option>
+            </select>
+        </div>
+
+        <div class="col-2">
+            <label class="form-label d-none" for="jobTitleFilter">Choose job:</label>
+            <select class="form-select" id="jobTitleFilter" name="jobTitle">
+                <option value="">All jobs</option>
+                <option th:each="job : ${T(kz.bitlab.bitlabfinalproject.enums.JobTitle).values()}"
+                        th:value="${job}"
+                        th:text="${job.getTitle()}"></option>
+            </select>
+        </div>
+
+        <div class="col">
+            <button type="submit" class="btn btn-primary">Filter</button>
+        </div>
+    </form>
+
     <div class="d-none d-lg-flex flex-wrap justify-content-start mt-3">
         <div class="card m-2 text-start text-break text-bg-light" style="width: 20rem;" th:each="staff : ${staffList}">
             <div class="card-header">

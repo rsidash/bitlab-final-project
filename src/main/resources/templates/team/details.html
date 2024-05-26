@@ -90,14 +90,14 @@
                             <div class="card-body">
                                 <h5 class="card-title" th:text="${manager.getFullName()}"></h5>
                                 <p class="card-text text-start" th:text="'Experience, years: ' + ${manager.experience}"></p>
-                                <p class="card-text text-start" th:text="'Phonenumber: ' + ${manager.phoneNumber}"></p>
+                                <p class="card-text text-start" th:text="'Phone number: ' + ${manager.phoneNumber}"></p>
                                 <p class="card-text text-start" th:text="'Description: ' + ${manager.description}"></p>
                             </div>
                             <div class="card-footer">
                                 <div class="d-flex flex-row gap-2 justify-content-end">
-                                    <a th:href="@{'/staff/edit/' + ${manager.uuid}}" class="btn btn-success">Edit</a>
-                                    <form th:action="'/staff/delete/' + ${manager.uuid}" class="d-flex" method="post">
-                                        <button class="btn btn-danger">Delete</button>
+                                    <a th:href="@{'/staff/edit/' + ${manager.uuid}}" class="btn btn-success w-100">Edit</a>
+                                    <form th:action="'/staff/delete/' + ${manager.uuid}" class="d-flex w-100" method="post">
+                                        <button class="btn btn-danger w-100">Delete</button>
                                     </form>
                                 </div>
                             </div>
@@ -111,14 +111,14 @@
                             <div class="card-body">
                                 <h5 class="card-title" th:text="${coach.getFullName()}"></h5>
                                 <p class="card-text text-start" th:text="'Experience, years: ' + ${coach.experience}"></p>
-                                <p class="card-text text-start" th:text="'Phonenumber: ' + ${coach.phoneNumber}"></p>
+                                <p class="card-text text-start" th:text="'Phone number: ' + ${coach.phoneNumber}"></p>
                                 <p class="card-text text-start" th:text="'Description: ' + ${coach.description}"></p>
                             </div>
                             <div class="card-footer">
                                 <div class="d-flex flex-row gap-2 justify-content-end">
-                                    <a th:href="@{'/staff/edit/' + ${coach.uuid}}" class="btn btn-success">Edit</a>
-                                    <form th:action="'/staff/delete/' + ${coach.uuid}" class="d-flex" method="post">
-                                        <button class="btn btn-danger">Delete</button>
+                                    <a th:href="@{'/staff/edit/' + ${coach.uuid}}" class="btn btn-success w-100">Edit</a>
+                                    <form th:action="'/staff/delete/' + ${coach.uuid}" class="d-flex w-100" method="post">
+                                        <button class="btn btn-danger w-100">Delete</button>
                                     </form>
                                 </div>
                             </div>

@@ -106,7 +106,7 @@ public class TeamServiceImpl implements TeamService {
     @Override
     public void delete(@NonNull final String uuid) {
         teamRepository.findByUuid(uuid).ifPresentOrElse(
-                team -> teamRepository.deleteById(team.getId()),
+                teamRepository::delete,
                 () -> {
                     throw new NotFoundException("Team not found");
                 }

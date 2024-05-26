@@ -79,7 +79,7 @@ public class TeamController {
 
         teamRestClientService.updateTeam(uuid, teamDto);
 
-        return "redirect:/teams";
+        return "redirect:/teams/" + uuid;
     }
 
     @PostMapping("/delete/{uuid}")

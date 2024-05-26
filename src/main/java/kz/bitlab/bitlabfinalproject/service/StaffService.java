@@ -8,8 +8,8 @@ import java.util.List;
 
 public interface StaffService {
     List<StaffDto> findAll();
-    List<StaffDto> findByTeamUuid(String teamUuid);
-    List<StaffDto> findByTeamUuidAndJobTitle(String teamUuid, JobTitle jobTitle);
+    List<StaffDto> findByTeamName(String teamName);
+    List<StaffDto> findByTeamNameAndJobTitle(String teamName, JobTitle jobTitle);
     StaffDto findByUuid(String uuid);
     void create(StaffDto staffDto, String teamUuid);
     void update(String uuid, StaffUpdateDto staffDto);

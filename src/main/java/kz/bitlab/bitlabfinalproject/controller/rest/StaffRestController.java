@@ -3,6 +3,7 @@ package kz.bitlab.bitlabfinalproject.controller.rest;
 import kz.bitlab.bitlabfinalproject.entity.dto.staff.StaffDto;
 import kz.bitlab.bitlabfinalproject.entity.dto.staff.StaffUpdateDto;
 import kz.bitlab.bitlabfinalproject.enums.JobTitle;
+import kz.bitlab.bitlabfinalproject.enums.PlayingPosition;
 import kz.bitlab.bitlabfinalproject.exception.NotFoundException;
 import kz.bitlab.bitlabfinalproject.service.StaffService;
 import lombok.RequiredArgsConstructor;
@@ -20,20 +21,21 @@ public class StaffRestController {
     private final StaffService staffService;
 
     @GetMapping("/staff")
-    public List<StaffDto> findAll() {
-        return staffService.findAll();
+    public List<StaffDto> findAll(@RequestParam(value = "team", required = false) final String team,
+                                  @RequestParam(value = "jobTitle", required = false) final JobTitle jobTitle) {
+        return staffService.findByTeamNameAndJobTitle(team, jobTitle);
     }
 
     @GetMapping("/staff/by-team/{teamUuid}")
     public List<StaffDto> findByTeamUuid(@PathVariable("teamUuid") @NonNull final String teamUuid) {
-        return staffService.findByTeamUuid(teamUuid);
+        return staffService.findByTeamName(teamUuid);
     }
 
-    @GetMapping("/staff/by-team/{teamUuid}/by-job")
-    public List<StaffDto> findByTeamUuidAndJobTitle(@PathVariable("teamUuid") @NonNull final String teamUuid,
-                                                    @RequestParam("jobTitle") @NonNull final JobTitle jobTitle) {
-        return staffService.findByTeamUuidAndJobTitle(teamUuid, jobTitle);
-    }
+//    @GetMapping("/staff/by-team/{teamUuid}/by-job")
+//    public List<StaffDto> findByTeamUuidAndJobTitle(@PathVariable("teamUuid") @NonNull final String teamUuid,
+//                                                    @RequestParam("jobTitle") @NonNull final JobTitle jobTitle) {
+//        return staffService.findByTeamNameAndJobTitle(teamUuid, jobTitle);
+//    }
 
     @GetMapping("/staff/{uuid}")
     public StaffDto findByUuid(@PathVariable("uuid") @NonNull final String uuid) {

@@ -3,6 +3,7 @@ package kz.bitlab.bitlabfinalproject.external.service;
 import jakarta.annotation.Nullable;
 import kz.bitlab.bitlabfinalproject.entity.dto.player.PlayerDto;
 import kz.bitlab.bitlabfinalproject.entity.dto.player.PlayerUpdateDto;
+import kz.bitlab.bitlabfinalproject.enums.PlayingPosition;
 import kz.bitlab.bitlabfinalproject.external.client.PlayerRestClient;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -19,9 +20,9 @@ import java.util.List;
 public class PlayerRestClientService {
     private final PlayerRestClient playerRestClient;
 
-    public List<PlayerDto> getAllPlayers() {
+    public List<PlayerDto> getAllPlayers(final String team, final PlayingPosition position) {
         try {
-            return playerRestClient.getAllPlayers();
+            return playerRestClient.getAllPlayers(team, position);
         } catch (HttpClientErrorException e) {
             log.error("Players not found", e);
         } catch (Exception e) {

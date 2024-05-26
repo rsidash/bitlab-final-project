@@ -29,7 +29,7 @@ public class Staff extends BaseEntity {
     @Enumerated(EnumType.STRING)
     private JobTitle jobTitle;
 
-    @ManyToOne
-    @JoinColumn(name = "team_id")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "team_id", nullable = false)
     private Team team;
 }

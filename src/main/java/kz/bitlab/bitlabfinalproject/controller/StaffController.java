@@ -3,7 +3,10 @@ package kz.bitlab.bitlabfinalproject.controller;
 import jakarta.validation.Valid;
 import kz.bitlab.bitlabfinalproject.entity.dto.staff.StaffDto;
 import kz.bitlab.bitlabfinalproject.entity.dto.staff.StaffUpdateDto;
+import kz.bitlab.bitlabfinalproject.entity.dto.team.TeamDto;
+import kz.bitlab.bitlabfinalproject.enums.JobTitle;
 import kz.bitlab.bitlabfinalproject.external.service.StaffRestClientService;
+import kz.bitlab.bitlabfinalproject.external.service.TeamRestClientService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Controller;
@@ -19,11 +22,18 @@ import java.util.Objects;
 @RequestMapping("/staff")
 public class StaffController {
     private final StaffRestClientService staffRestClientService;
+    private final TeamRestClientService teamRestClientService;
 
     @GetMapping
-    public String getAllPlayers(Model model) {
-        List<StaffDto> staffList = staffRestClientService.getAllStaff();
+    public String getAllPlayers(@RequestParam(value = "team", required = false) final String team,
+                                @RequestParam(value = "jobTitle", required = false) final JobTitle jobTitle,
+                                Model model) {
+        List<StaffDto> staffList = staffRestClientService.getAllStaff(team, jobTitle);
         model.addAttribute("staffList", staffList);
+
+        final var teamNames = teamRestClientService.getAllTeams().stream()
+                .map(TeamDto::getName).toList();
+        model.addAttribute("teamNames", teamNames);
 
         return "staff/index";
     }

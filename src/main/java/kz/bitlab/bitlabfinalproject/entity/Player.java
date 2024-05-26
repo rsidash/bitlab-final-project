@@ -31,7 +31,7 @@ public class Player extends BaseEntity {
     @Enumerated(EnumType.STRING)
     private PlayingPosition playingPosition;
 
-    @ManyToOne
-    @JoinColumn(name = "team_id")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "team_id", nullable = false)
     private Team team;
 }

@@ -3,6 +3,7 @@ package kz.bitlab.bitlabfinalproject.external.client;
 import kz.bitlab.bitlabfinalproject.entity.dto.staff.StaffDto;
 import kz.bitlab.bitlabfinalproject.entity.dto.staff.StaffUpdateDto;
 import kz.bitlab.bitlabfinalproject.enums.JobTitle;
+import kz.bitlab.bitlabfinalproject.enums.PlayingPosition;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.lang.NonNull;
@@ -23,10 +24,10 @@ public class StaffRestClient {
     @Value("${api.url}")
     private String url;
 
-    public List<StaffDto> getAllStaff() {
+    public List<StaffDto> getAllStaff(final String team, final JobTitle jobTitle) {
         final var staffList = restTemplate.getForObject(
-                url + "/staff",
-                StaffDto[].class
+                url + "/staff?team={team}&jobTitle={jobTitle}",
+                StaffDto[].class, team, jobTitle
         );
 
         if (Objects.nonNull(staffList)) {

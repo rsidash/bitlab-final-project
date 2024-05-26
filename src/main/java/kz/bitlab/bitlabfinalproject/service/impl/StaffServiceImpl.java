@@ -1,5 +1,7 @@
 package kz.bitlab.bitlabfinalproject.service.impl;
 
+import io.micrometer.common.util.StringUtils;
+import kz.bitlab.bitlabfinalproject.entity.Staff;
 import kz.bitlab.bitlabfinalproject.entity.dto.staff.StaffDto;
 import kz.bitlab.bitlabfinalproject.entity.dto.staff.StaffUpdateDto;
 import kz.bitlab.bitlabfinalproject.enums.JobTitle;
@@ -14,6 +16,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Objects;
 
 @Service
 @RequiredArgsConstructor
@@ -32,16 +35,28 @@ public class StaffServiceImpl implements StaffService {
 
     @Transactional(readOnly = true)
     @Override
-    public List<StaffDto> findByTeamUuid(@NonNull final String teamUuid) {
-        final var staffList = staffRepository.findByTeamUuid(teamUuid);
+    public List<StaffDto> findByTeamName(@NonNull final String teamUuid) {
+        final var staffList = staffRepository.findByTeamNameOrderByLastName(teamUuid);
 
         return staffMapper.toDtoList(staffList);
     }
 
     @Transactional(readOnly = true)
     @Override
-    public List<StaffDto> findByTeamUuidAndJobTitle(@NonNull final String teamUuid, @NonNull final JobTitle jobTitle) {
-        final var staffList = staffRepository.findAllByTeamUuidAndJobTitle(teamUuid, jobTitle);
+    public List<StaffDto> findByTeamNameAndJobTitle(final String teamName, final JobTitle jobTitle) {
+        List<Staff> staffList;
+
+        if (StringUtils.isEmpty(teamName) && Objects.nonNull(jobTitle)) {
+            staffList = staffRepository.findByJobTitleOrderByLastName(jobTitle);
+        } else if (StringUtils.isEmpty(teamName) && Objects.isNull(jobTitle)) {
+            staffList = staffRepository.findAll();
+        } else {
+            if (Objects.nonNull(jobTitle)) {
+                staffList = staffRepository.findByTeamNameAndJobTitleOrderByLastName(teamName, jobTitle);
+            } else {
+                staffList = staffRepository.findByTeamNameOrderByLastName(teamName);
+            }
+        }
 
         return staffMapper.toDtoList(staffList);
     }

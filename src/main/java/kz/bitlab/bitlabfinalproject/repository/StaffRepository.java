@@ -10,7 +10,9 @@ import java.util.Optional;
 
 @Repository
 public interface StaffRepository extends JpaRepository<Staff, Long> {
-    List<Staff> findByTeamUuid(String teamUuid);
+    List<Staff> findByTeamNameOrderByLastName(String teamName);
+    List<Staff> findByJobTitleOrderByLastName(JobTitle jobTitle);
+    List<Staff> findByTeamNameAndJobTitleOrderByLastName(String teamName, JobTitle jobTitle);
     Optional<Staff> findByUuid(String uuid);
     List<Staff> findAllByTeamUuidAndJobTitle(String teamUuid, JobTitle jobTitle);
 }

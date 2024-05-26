@@ -2,6 +2,7 @@ package kz.bitlab.bitlabfinalproject.controller.rest;
 
 import kz.bitlab.bitlabfinalproject.entity.dto.player.PlayerDto;
 import kz.bitlab.bitlabfinalproject.entity.dto.player.PlayerUpdateDto;
+import kz.bitlab.bitlabfinalproject.enums.PlayingPosition;
 import kz.bitlab.bitlabfinalproject.exception.NotFoundException;
 import kz.bitlab.bitlabfinalproject.service.PlayerService;
 import lombok.RequiredArgsConstructor;
@@ -19,8 +20,9 @@ public class PlayerRestController {
     private final PlayerService playerService;
 
     @GetMapping("/players")
-    public List<PlayerDto> findAll() {
-        return playerService.findAll();
+    public List<PlayerDto> findAll(@RequestParam(value = "team", required = false) final String team,
+                                   @RequestParam(value = "position", required = false) final PlayingPosition position) {
+        return playerService.findByTeamNameAndPosition(team, position);
     }
 
     @GetMapping("/players/by-team/{team}")

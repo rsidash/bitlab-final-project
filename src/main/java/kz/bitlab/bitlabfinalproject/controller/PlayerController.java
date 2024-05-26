@@ -3,7 +3,10 @@ package kz.bitlab.bitlabfinalproject.controller;
 import jakarta.validation.Valid;
 import kz.bitlab.bitlabfinalproject.entity.dto.player.PlayerDto;
 import kz.bitlab.bitlabfinalproject.entity.dto.player.PlayerUpdateDto;
+import kz.bitlab.bitlabfinalproject.entity.dto.team.TeamDto;
+import kz.bitlab.bitlabfinalproject.enums.PlayingPosition;
 import kz.bitlab.bitlabfinalproject.external.service.PlayerRestClientService;
+import kz.bitlab.bitlabfinalproject.external.service.TeamRestClientService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Controller;
@@ -19,11 +22,18 @@ import java.util.Objects;
 @RequestMapping("/players")
 public class PlayerController {
     private final PlayerRestClientService playerRestClientService;
+    private final TeamRestClientService teamRestClientService;
 
     @GetMapping
-    public String getAllPlayers(Model model) {
-        List<PlayerDto> players = playerRestClientService.getAllPlayers();
+    public String getAllPlayers(@RequestParam(value = "team", required = false) final String team,
+                                @RequestParam(value = "playingPosition", required = false) final PlayingPosition position,
+                                Model model) {
+        final var players = playerRestClientService.getAllPlayers(team, position);
         model.addAttribute("players", players);
+
+        final var teamNames = teamRestClientService.getAllTeams().stream()
+                .map(TeamDto::getName).toList();
+        model.addAttribute("teamNames", teamNames);
 
         return "player/index";
     }

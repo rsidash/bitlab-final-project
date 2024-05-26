@@ -1,7 +1,10 @@
 package kz.bitlab.bitlabfinalproject.service.impl;
 
+import io.micrometer.common.util.StringUtils;
+import kz.bitlab.bitlabfinalproject.entity.Player;
 import kz.bitlab.bitlabfinalproject.entity.dto.player.PlayerDto;
 import kz.bitlab.bitlabfinalproject.entity.dto.player.PlayerUpdateDto;
+import kz.bitlab.bitlabfinalproject.enums.PlayingPosition;
 import kz.bitlab.bitlabfinalproject.exception.NotFoundException;
 import kz.bitlab.bitlabfinalproject.repository.PlayerRepository;
 import kz.bitlab.bitlabfinalproject.service.PlayerService;
@@ -13,6 +16,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Objects;
 
 @Service
 @RequiredArgsConstructor
@@ -33,6 +37,26 @@ public class PlayerServiceImpl implements PlayerService {
     @Override
     public List<PlayerDto> findByTeamName(@NonNull final String teamName) {
         final var players = playerRepository.findByTeamNameOrderByLastName(teamName);
+
+        return playerMapper.toDtoList(players);
+    }
+
+    @Transactional(readOnly = true)
+    @Override
+    public List<PlayerDto> findByTeamNameAndPosition(final String teamName, final PlayingPosition position) {
+        List<Player> players;
+
+        if (StringUtils.isEmpty(teamName) && Objects.nonNull(position)) {
+            players = playerRepository.findByPlayingPositionOrderByLastName(position);
+        } else if (StringUtils.isEmpty(teamName) && Objects.isNull(position)) {
+            players = playerRepository.findAll();
+        } else {
+            if (Objects.nonNull(position)) {
+                players = playerRepository.findByTeamNameAndPlayingPositionOrderByLastName(teamName, position);
+            } else {
+                players = playerRepository.findByTeamNameOrderByLastName(teamName);
+            }
+        }
 
         return playerMapper.toDtoList(players);
     }
@@ -71,7 +95,7 @@ public class PlayerServiceImpl implements PlayerService {
     @Override
     public void delete(@NonNull final String uuid) {
         playerRepository.findByUuid(uuid).ifPresentOrElse(
-                player -> playerRepository.deleteById(player.getId()),
+                playerRepository::delete,
                 () -> {
                     throw new NotFoundException("Player not found");
                 }

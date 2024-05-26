@@ -3,6 +3,7 @@ package kz.bitlab.bitlabfinalproject.external.service;
 import kz.bitlab.bitlabfinalproject.entity.dto.staff.StaffDto;
 import kz.bitlab.bitlabfinalproject.entity.dto.staff.StaffUpdateDto;
 import kz.bitlab.bitlabfinalproject.enums.JobTitle;
+import kz.bitlab.bitlabfinalproject.enums.PlayingPosition;
 import kz.bitlab.bitlabfinalproject.external.client.StaffRestClient;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -20,9 +21,9 @@ import java.util.List;
 public class StaffRestClientService {
     private final StaffRestClient staffRestClient;
 
-    public List<StaffDto> getAllStaff() {
+    public List<StaffDto> getAllStaff(final String team, final JobTitle jobTitle) {
         try {
-            return staffRestClient.getAllStaff();
+            return staffRestClient.getAllStaff(team, jobTitle);
         } catch (HttpClientErrorException e) {
             log.error("Staff not found", e);
         } catch (Exception e) {
