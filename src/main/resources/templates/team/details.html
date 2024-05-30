@@ -5,7 +5,7 @@
 
 <div layout:fragment="content">
     <h1 class="mt-3">Team form</h1>
-    <div class="d-flex flex-row gap-2" th:if="${currentUser.getId().equals(team.getUser().getId())}">
+    <div class="d-flex flex-row gap-2" th:if="${currentUser.getId().equals(team.getUser().getId()) || currentUser.hasAdminRole()}">
         <a th:href="@{'/teams/edit/' + ${team.uuid}}" class="btn btn-success">Edit team</a>
         <form th:action="'/teams/delete/' + ${team.uuid}" class="d-flex" method="post">
             <button class="btn btn-danger">Delete team</button>
@@ -93,7 +93,7 @@
                                 <p class="card-text text-start" th:text="'Phone number: ' + ${manager.phoneNumber}"></p>
                                 <p class="card-text text-start" th:text="'Description: ' + ${manager.description}"></p>
                             </div>
-                            <div class="card-footer">
+                            <div class="card-footer" th:if="${currentUser.getId().equals(team.getUser().getId())}">
                                 <div class="d-flex flex-row gap-2 justify-content-end">
                                     <a th:href="@{'/staff/edit/' + ${manager.uuid}}" class="btn btn-success w-100">Edit</a>
                                     <form th:action="'/staff/delete/' + ${manager.uuid}" class="d-flex w-100" method="post">
@@ -114,7 +114,7 @@
                                 <p class="card-text text-start" th:text="'Phone number: ' + ${coach.phoneNumber}"></p>
                                 <p class="card-text text-start" th:text="'Description: ' + ${coach.description}"></p>
                             </div>
-                            <div class="card-footer">
+                            <div class="card-footer" th:if="${currentUser.getId().equals(team.getUser().getId())}">
                                 <div class="d-flex flex-row gap-2 justify-content-end">
                                     <a th:href="@{'/staff/edit/' + ${coach.uuid}}" class="btn btn-success w-100">Edit</a>
                                     <form th:action="'/staff/delete/' + ${coach.uuid}" class="d-flex w-100" method="post">

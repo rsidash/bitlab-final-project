@@ -132,7 +132,7 @@ public class TeamRestClientService {
             throw new RuntimeException("Team is null or team user is null");
         }
 
-        if (!team.getUser().getId().equals(user.getId())) {
+        if (!team.getUser().getId().equals(user.getId()) && !user.hasAdminRole()) {
             throw new NotAllowedException();
         }
     }
