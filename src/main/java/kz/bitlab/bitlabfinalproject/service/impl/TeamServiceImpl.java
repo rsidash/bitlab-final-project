@@ -4,11 +4,13 @@ import kz.bitlab.bitlabfinalproject.entity.Team;
 import kz.bitlab.bitlabfinalproject.entity.dto.team.TeamDataDto;
 import kz.bitlab.bitlabfinalproject.entity.dto.team.TeamDto;
 import kz.bitlab.bitlabfinalproject.entity.dto.team.TeamUpdateDto;
+import kz.bitlab.bitlabfinalproject.exception.NotAllowedException;
 import kz.bitlab.bitlabfinalproject.exception.NotFoundException;
 import kz.bitlab.bitlabfinalproject.repository.TeamRepository;
 import kz.bitlab.bitlabfinalproject.service.TeamService;
 import kz.bitlab.bitlabfinalproject.service.UserService;
 import kz.bitlab.bitlabfinalproject.service.mapper.TeamMapper;
+import kz.bitlab.bitlabfinalproject.service.mapper.UserMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Service;
@@ -79,8 +81,8 @@ public class TeamServiceImpl implements TeamService {
     @Transactional
     @Override
     public TeamDto create(@NonNull final TeamDto teamDto) {
-        // FIXME: add current user as team owner
-        final var user = userService.getUserById(1L);
+        final var userDto = teamDto.getUser();
+        final var user = userService.getUserById(userDto.getId());
 
         final var team = teamMapper.toEntity(teamDto);
         team.setUser(user);

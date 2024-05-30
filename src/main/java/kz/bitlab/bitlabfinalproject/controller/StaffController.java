@@ -9,6 +9,7 @@ import kz.bitlab.bitlabfinalproject.external.service.StaffRestClientService;
 import kz.bitlab.bitlabfinalproject.external.service.TeamRestClientService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.lang.NonNull;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -39,6 +40,7 @@ public class StaffController {
     }
 
     @GetMapping("/add/{teamUuid}")
+    @PreAuthorize("isAuthenticated()")
     public String showCreatePage(@PathVariable("teamUuid") @NonNull final String teamUuid, Model model) {
         model.addAttribute("teamUuid", teamUuid);
 
@@ -46,6 +48,7 @@ public class StaffController {
     }
 
     @PostMapping("/add/{teamUuid}")
+    @PreAuthorize("isAuthenticated()")
     public String create(@ModelAttribute @Valid StaffDto staffDto, BindingResult result,
                          Model model, @PathVariable("teamUuid") @NonNull final String teamUuid) {
         if (result.hasErrors()) {
@@ -58,6 +61,7 @@ public class StaffController {
     }
 
     @GetMapping("/edit/{uuid}")
+    @PreAuthorize("isAuthenticated()")
     public String showEditPage(Model model, @PathVariable("uuid") @NonNull final String uuid) {
         StaffDto staff = staffRestClientService.getStaffByUuid(uuid);
         model.addAttribute("staff", staff);
@@ -66,6 +70,7 @@ public class StaffController {
     }
 
     @PostMapping("/edit/{uuid}")
+    @PreAuthorize("isAuthenticated()")
     public String edit(@PathVariable("uuid") String uuid, @ModelAttribute StaffUpdateDto staffUpdateDto,
                            BindingResult result, Model model) {
         if (result.hasErrors()) {
@@ -83,6 +88,7 @@ public class StaffController {
     }
 
     @PostMapping("/delete/{uuid}")
+    @PreAuthorize("isAuthenticated()")
     public String delete(@PathVariable("uuid") @NonNull final String uuid) {
         final var staffDto = staffRestClientService.getStaffByUuid(uuid);
 

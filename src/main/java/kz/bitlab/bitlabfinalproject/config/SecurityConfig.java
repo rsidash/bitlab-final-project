@@ -34,7 +34,14 @@ public class SecurityConfig {
         authenticationManagerBuilder.userDetailsService(userService()).passwordEncoder(passwordEncoder());
 
         http.authorizeHttpRequests(
-                req -> req.requestMatchers("/css/**", "/js/**").permitAll()
+                req -> req
+                        .requestMatchers("/sign-in", "/sign-up").anonymous()
+                        .requestMatchers("/sign-out", "/change-password", "/save-password").authenticated()
+                        .requestMatchers("/profile").authenticated()
+                        .requestMatchers("/css/**", "/js/**").permitAll()
+                        .requestMatchers("/api/**").permitAll()
+                        .requestMatchers("/", "/teams", "/players", "/staff").permitAll()
+                        .anyRequest().authenticated()
         );
 
 
@@ -50,8 +57,7 @@ public class SecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable);
 
         http
-                .csrf(AbstractHttpConfigurer::disable)
-                .authorizeHttpRequests(request -> request.anyRequest().permitAll()/*.authenticated()*/);
+                .csrf(AbstractHttpConfigurer::disable);
 
         return http.build();
     }

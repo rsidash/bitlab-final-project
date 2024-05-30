@@ -38,7 +38,7 @@
             <div class="card-body">
                 <h5 class="card-title" th:text="${staff.getFullName()}"></h5>
                 <p class="card-text text-start" th:text="'Job title: ' + ${staff.jobTitle.getTitle()}"></p>
-                <p class="card-text text-start" th:text="'Experience: ' + ${staff.experience}"></p>
+                <p class="card-text text-start" th:text="'Experience, years: ' + ${staff.experience}"></p>
                 <p class="card-text text-start" th:text="'Phone number: ' + ${staff.phoneNumber}"></p>
             </div>
         </div>

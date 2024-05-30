@@ -1,13 +1,19 @@
 package kz.bitlab.bitlabfinalproject.controller.rest;
 
+import jakarta.servlet.http.HttpServletRequest;
 import kz.bitlab.bitlabfinalproject.entity.dto.team.TeamDataDto;
 import kz.bitlab.bitlabfinalproject.entity.dto.team.TeamDto;
 import kz.bitlab.bitlabfinalproject.entity.dto.team.TeamUpdateDto;
+import kz.bitlab.bitlabfinalproject.entity.security.User;
+import kz.bitlab.bitlabfinalproject.exception.NotAllowedException;
 import kz.bitlab.bitlabfinalproject.exception.NotFoundException;
 import kz.bitlab.bitlabfinalproject.service.TeamService;
+import kz.bitlab.bitlabfinalproject.service.UserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.lang.NonNull;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -18,6 +24,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class TeamRestController {
     private final TeamService teamService;
+    private final UserService userService;
 
     @GetMapping("/teams")
     public List<TeamDto> findAll() {
@@ -76,6 +83,8 @@ public class TeamRestController {
             teamService.delete(uuid);
         } catch (NotFoundException exception) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+        } catch (NotAllowedException exception) {
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN);
         }
     }
 }

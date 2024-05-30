@@ -45,9 +45,9 @@ public class StaffRestClientService {
         return Collections.emptyList();
     }
 
-    public List<StaffDto> getAllTeamStaffByJobTitle(@NonNull final String teamUuid, @NonNull final JobTitle jobTitle) {
+    public List<StaffDto> getAllTeamStaffByJobTitle(@NonNull final String teamName, @NonNull final JobTitle jobTitle) {
         try {
-            return staffRestClient.getAllTeamStaffByJobTitle(teamUuid, jobTitle);
+            return staffRestClient.getAllTeamStaffByJobTitle(teamName, jobTitle);
         } catch (HttpClientErrorException e) {
             log.error("Staff not found", e);
         } catch (Exception e) {

@@ -31,11 +31,11 @@ public class StaffRestController {
         return staffService.findByTeamName(teamUuid);
     }
 
-//    @GetMapping("/staff/by-team/{teamUuid}/by-job")
-//    public List<StaffDto> findByTeamUuidAndJobTitle(@PathVariable("teamUuid") @NonNull final String teamUuid,
-//                                                    @RequestParam("jobTitle") @NonNull final JobTitle jobTitle) {
-//        return staffService.findByTeamNameAndJobTitle(teamUuid, jobTitle);
-//    }
+    @GetMapping("/staff/by-team/{teamUuid}/by-job")
+    public List<StaffDto> findByTeamUuidAndJobTitle(@PathVariable("teamUuid") @NonNull final String teamUuid,
+                                                    @RequestParam("jobTitle") @NonNull final JobTitle jobTitle) {
+        return staffService.findByTeamNameAndJobTitle(teamUuid, jobTitle);
+    }
 
     @GetMapping("/staff/{uuid}")
     public StaffDto findByUuid(@PathVariable("uuid") @NonNull final String uuid) {

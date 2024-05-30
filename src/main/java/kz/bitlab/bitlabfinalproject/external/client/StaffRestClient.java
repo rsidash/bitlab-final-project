@@ -50,10 +50,10 @@ public class StaffRestClient {
         }
     }
 
-    public List<StaffDto> getAllTeamStaffByJobTitle(@NonNull final String teamUuid, @NonNull final JobTitle jobTitle) {
+    public List<StaffDto> getAllTeamStaffByJobTitle(@NonNull final String teamName, @NonNull final JobTitle jobTitle) {
         final var staffList = restTemplate.getForObject(
-                url + "/staff/by-team/{teamUuid}/by-job?jobTitle={jobTitle}",
-                StaffDto[].class, teamUuid, jobTitle
+                url + "/staff/by-team/{teamName}/by-job?jobTitle={jobTitle}",
+                StaffDto[].class, teamName, jobTitle
         );
 
         if (Objects.nonNull(staffList)) {

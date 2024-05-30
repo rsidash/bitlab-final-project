@@ -4,8 +4,13 @@ import jakarta.annotation.Nullable;
 import kz.bitlab.bitlabfinalproject.entity.dto.team.TeamDataDto;
 import kz.bitlab.bitlabfinalproject.entity.dto.team.TeamDto;
 import kz.bitlab.bitlabfinalproject.entity.dto.team.TeamUpdateDto;
+import kz.bitlab.bitlabfinalproject.exception.NotAllowedException;
+import kz.bitlab.bitlabfinalproject.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
@@ -20,6 +25,7 @@ import java.util.Objects;
 @RequiredArgsConstructor
 public class TeamRestClient  {
     private final RestTemplate restTemplate;
+    private final UserService userService;
 
     @Value("${api.url}")
     private String url;

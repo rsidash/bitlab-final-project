@@ -5,7 +5,7 @@
 
 <div layout:fragment="content">
     <h1 class="mt-3">Team form</h1>
-    <div class="d-flex flex-row gap-2">
+    <div class="d-flex flex-row gap-2" th:if="${currentUser.getId().equals(team.getUser().getId())}">
         <a th:href="@{'/teams/edit/' + ${team.uuid}}" class="btn btn-success">Edit team</a>
         <form th:action="'/teams/delete/' + ${team.uuid}" class="d-flex" method="post">
             <button class="btn btn-danger">Delete team</button>
@@ -33,7 +33,7 @@
     <div class="pt-2 tab-content" id="myTabContent">
         <div class="tab-pane fade show active" id="roster" role="tabpanel" aria-labelledby="roster-tab">
             <div class="d-flex flex-column">
-                <div class="mb-3">
+                <div class="mb-3" th:if="${currentUser.getId().equals(team.getUser().getId())}">
                     <a th:href="@{'/players/add/' + ${team.uuid}}" class="btn btn-primary">Add player</a>
                 </div>
                 <table class="table table-hover align-middle">
@@ -45,7 +45,7 @@
                         <th scope="col">Jersey number</th>
                         <th scope="col">Playing position</th>
                         <th scope="col">Age</th>
-                        <th scope="col">Actions (Edit / Delete)</th>
+                        <th scope="col" th:if="${currentUser.getId().equals(team.getUser().getId())}">Actions (Edit / Delete)</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -56,7 +56,7 @@
                         <td th:text="${player.jerseyNumber}"></td>
                         <td th:text="${player.playingPosition}"></td>
                         <td th:text="${player.getAge()}"></td>
-                        <td>
+                        <td th:if="${currentUser.getId().equals(team.getUser().getId())}">
                             <div class="d-flex flex-row gap-2">
                                 <a th:href="@{'/players/edit/' + ${player.uuid}}" class="btn btn-success">Edit</a>
                                 <form th:action="@{'/players/delete/' + ${player.uuid}}" class="d-flex" method="post">
@@ -71,7 +71,7 @@
         </div>
         <div class="tab-pane fade" id="staff" role="tabpanel" aria-labelledby="staff-tab">
             <div class="d-flex flex-column">
-                <div class="mb-3">
+                <div class="mb-3" th:if="${currentUser.getId().equals(team.getUser().getId())}">
                     <a th:href="@{'/staff/add/' + ${team.uuid}}" class="btn btn-primary">Add staff</a>
                 </div>
                 <div>
@@ -126,9 +126,9 @@
                     </div>
                 </div>
             </div>
-            <div class="tab-pane fade" id="about" role="tabpanel" aria-labelledby="about-tab">
-                <p th:text="${team.description}"></p>
-            </div>
+        </div>
+        <div class="tab-pane fade" id="about" role="tabpanel" aria-labelledby="about-tab">
+            <p th:utext="${team.description}"></p>
         </div>
     </div>
 </div>

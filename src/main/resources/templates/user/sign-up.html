@@ -1,20 +1,49 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-<form>
-    <div class="mb-3">
-        <label for="exampleInputEmail1" class="form-label">Email address</label>
-        <input class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="username">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="/main.html">
+
+<div layout:fragment="content">
+<div class="mt-3">
+    <div th:if="${errors}">
+        <div th:each="error : ${errors}" class="alert alert-danger alert-dismissible fade show" role="alert">
+            <span th:text="${error.defaultMessage}"></span>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
     </div>
-    <div class="mb-3">
-        <label for="exampleInputPassword1" class="form-label">Password</label>
-        <input type="password" class="form-control" id="exampleInputPassword1" name="password">
-    </div>
-    <button type="submit" class="btn btn-primary">Submit</button>
-</form>
-</body>
+    <form class="mt-3 row g-3" method="post">
+        <div>
+<!--            <div class="row">-->
+                <div class="w-50">
+                    <label for="firstName" class="form-label">First name</label>
+                    <input class="form-control" id="firstName" name="firstName">
+                </div>
+                <div class="w-50">
+                    <label for="lastName" class="form-label">Last name</label>
+                    <input class="form-control" id="lastName" name="lastName">
+                </div>
+<!--            </div>-->
+<!--            <div class="row">-->
+                <div class="w-50">
+                    <label for="username" class="form-label">Username</label>
+                    <input type="text" class="form-control" id="username" name="username" placeholder="">
+                </div>
+<!--            </div>-->
+            <div class="row w-50">
+                <div class="col-6">
+                    <label for="password" class="form-label">Password</label>
+                    <input type="password" class="form-control" id="password" name="password" placeholder="">
+                </div>
+                <div class="col-6">
+                    <label for="rePassword" class="form-label">Repeat password</label>
+                    <input type="password" class="form-control" id="rePassword" name="rePassword">
+                </div>
+            </div>
+        </div>
+        <div class="col-12">
+            <button type="submit" class="btn btn-primary">Sign Up</button>
+        </div>
+    </form>
+</div>
+</div>
 </html>

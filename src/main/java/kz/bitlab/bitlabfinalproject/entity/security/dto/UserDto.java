@@ -11,7 +11,9 @@ import java.util.List;
 @AllArgsConstructor
 @RequiredArgsConstructor
 public class UserDto {
+    private Long id;
     private String uuid;
+    private String username;
     private String firstName;
     private String lastName;
     private List<Role> roles;

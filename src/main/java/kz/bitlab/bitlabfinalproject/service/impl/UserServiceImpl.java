@@ -22,6 +22,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Collections;
 import java.util.Objects;
@@ -52,14 +53,14 @@ public class UserServiceImpl implements UserService {
     }
 
     @Nullable
-    public UserDto getCurrentUser() {
+    public User getCurrentUser() {
         final Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
         if (authentication instanceof AnonymousAuthenticationToken) {
             return null;
         }
 
-        return (UserDto) authentication.getPrincipal();
+        return (User) authentication.getPrincipal();
     }
 
     @Override
@@ -68,7 +69,7 @@ public class UserServiceImpl implements UserService {
             throw new RuntimeException("User already exists");
         }
 
-        if (userCreateDto.getPassword().equals(userCreateDto.getRePassword())) {
+        if (!userCreateDto.getPassword().equals(userCreateDto.getRePassword())) {
             throw new InvalidPasswordException("Password not the same");
         }
 
