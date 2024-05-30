@@ -3,8 +3,9 @@ package kz.bitlab.bitlabfinalproject.external.service;
 import kz.bitlab.bitlabfinalproject.entity.dto.staff.StaffDto;
 import kz.bitlab.bitlabfinalproject.entity.dto.staff.StaffUpdateDto;
 import kz.bitlab.bitlabfinalproject.enums.JobTitle;
-import kz.bitlab.bitlabfinalproject.enums.PlayingPosition;
+import kz.bitlab.bitlabfinalproject.exception.NotAllowedException;
 import kz.bitlab.bitlabfinalproject.external.client.StaffRestClient;
+import kz.bitlab.bitlabfinalproject.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.lang.NonNull;
@@ -14,12 +15,14 @@ import org.springframework.web.client.HttpClientErrorException;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 
 @Service
 @RequiredArgsConstructor
 @Slf4j
 public class StaffRestClientService {
     private final StaffRestClient staffRestClient;
+    private final UserService userService;
 
     public List<StaffDto> getAllStaff(final String team, final JobTitle jobTitle) {
         try {
@@ -71,6 +74,12 @@ public class StaffRestClientService {
     }
 
     public void createStaff(@NonNull final StaffDto staffDto, @NonNull final String teamUuid) {
+        final var user = userService.getCurrentUser();
+
+        if (Objects.isNull(user)) {
+            throw new NotAllowedException();
+        }
+
         try {
             staffRestClient.createStaff(staffDto, teamUuid);
         } catch (HttpClientErrorException e) {
@@ -81,6 +90,12 @@ public class StaffRestClientService {
     }
 
     public void updateStaff(@NonNull final String uuid, @NonNull final StaffUpdateDto staffUpdateDto) {
+        final var user = userService.getCurrentUser();
+
+        if (Objects.isNull(user)) {
+            throw new NotAllowedException();
+        }
+
         try {
             staffRestClient.updateStaff(uuid, staffUpdateDto);
         } catch (HttpClientErrorException e) {
@@ -91,6 +106,12 @@ public class StaffRestClientService {
     }
 
     public void deleteStaff(@NonNull final String uuid) {
+        final var user = userService.getCurrentUser();
+
+        if (Objects.isNull(user)) {
+            throw new NotAllowedException();
+        }
+
         try {
             staffRestClient.deleteStaff(uuid);
         } catch (HttpClientErrorException e) {

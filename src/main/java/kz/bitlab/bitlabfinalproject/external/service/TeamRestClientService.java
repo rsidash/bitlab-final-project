@@ -129,7 +129,7 @@ public class TeamRestClientService {
         final var team = getTeamByUuid(uuid);
 
         if (Objects.isNull(team) || Objects.isNull(team.getUser())) {
-            throw new RuntimeException("Team is null");
+            throw new RuntimeException("Team is null or team user is null");
         }
 
         if (!team.getUser().getId().equals(user.getId())) {
