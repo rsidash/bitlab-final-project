@@ -8,13 +8,6 @@ import org.mapstruct.MappingTarget;
 import java.util.List;
 
 @Mapper(componentModel = "spring")
-public interface UserMapper {
-
-    UserDto toDto(User user);
-
-    User toEntity(UserDto userDto);
-
-    List<UserDto> toDtoList(List<User> users);
-
+public interface UserMapper extends BaseMapper<UserDto, User> {
     void updateFromDto(UserDto dto, @MappingTarget User user);
 }

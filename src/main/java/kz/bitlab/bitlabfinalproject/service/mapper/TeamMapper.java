@@ -10,16 +10,8 @@ import org.mapstruct.MappingTarget;
 import java.util.List;
 
 @Mapper(componentModel = "spring")
-public interface TeamMapper {
-    TeamDto toDto(Team team);
-
+public interface TeamMapper extends BaseMapper<TeamDto, Team> {
     TeamDataDto toTeamDataDto(Team team);
-
-    Team toEntity(TeamDto teamDto);
-
     Team toEntityFromTeamDataDto(TeamDataDto teamDataDto);
-
-    List<TeamDto> toDtoList(List<Team> teams);
-
     void updateFromDto(TeamUpdateDto dto, @MappingTarget Team team);
 }

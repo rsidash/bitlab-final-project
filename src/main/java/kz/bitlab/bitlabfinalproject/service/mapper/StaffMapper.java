@@ -9,13 +9,6 @@ import org.mapstruct.MappingTarget;
 import java.util.List;
 
 @Mapper(componentModel = "spring")
-public interface StaffMapper {
-
-    StaffDto toDto(Staff staff);
-
-    Staff toEntity(StaffDto staffDto);
-
-    List<StaffDto> toDtoList(List<Staff> staffList);
-
+public interface StaffMapper extends BaseMapper<StaffDto, Staff> {
     void updateFromDto(StaffUpdateDto dto, @MappingTarget Staff staff);
 }

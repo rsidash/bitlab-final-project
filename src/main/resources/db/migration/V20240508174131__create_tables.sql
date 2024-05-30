@@ -20,28 +20,11 @@ CREATE TABLE IF NOT EXISTS roles (
 CREATE TABLE IF NOT EXISTS users_roles (
     user_id INT NOT NULL,
     role_id INT NOT NULL,
-    created_at DATE NOT NULL,
+    created_at DATE DEFAULT CURRENT_DATE,
     updated_at DATE,
     FOREIGN KEY (user_id) REFERENCES users(id),
     FOREIGN KEY (role_id) REFERENCES roles(id)
 );
-
--- CREATE TABLE IF NOT EXISTS playing_positions (
---     id BIGSERIAL PRIMARY KEY,
---     uuid VARCHAR(255) NOT NULL UNIQUE,
---     name VARCHAR(255) NOT NULL UNIQUE,
---     code VARCHAR(255) NOT NULL UNIQUE,
---     created_at DATE NOT NULL,
---     updated_at DATE
--- );
---
--- CREATE TABLE IF NOT EXISTS job_titles (
---     id BIGSERIAL PRIMARY KEY NOT NULL,
---     name VARCHAR(255) NOT NULL UNIQUE,
---     uuid VARCHAR(255) NOT NULL UNIQUE,
---     created_at DATE NOT NULL,
---     updated_at DATE
--- );
 
 CREATE TABLE IF NOT EXISTS teams (
     id BIGSERIAL PRIMARY KEY NOT NULL,

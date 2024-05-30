@@ -94,11 +94,11 @@ public class TeamServiceImpl implements TeamService {
 
     @Transactional
     @Override
-    public TeamDto update(@NonNull final String uuid, @NonNull final TeamUpdateDto teamDto) {
+    public TeamDto update(@NonNull final String uuid, @NonNull final TeamUpdateDto teamUpdateDto) {
         final var existingTeam = teamRepository.findByUuid(uuid)
                 .orElseThrow(() -> new NotFoundException("Team not found"));
 
-        teamMapper.updateFromDto(teamDto, existingTeam);
+        teamMapper.updateFromDto(teamUpdateDto, existingTeam);
 
         final var updatedTeam = teamRepository.save(existingTeam);
         return teamMapper.toDto(updatedTeam);

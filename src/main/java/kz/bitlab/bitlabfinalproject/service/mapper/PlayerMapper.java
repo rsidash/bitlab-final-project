@@ -10,16 +10,6 @@ import java.util.List;
 import java.util.Set;
 
 @Mapper(componentModel = "spring")
-public interface PlayerMapper {
-    PlayerDto toDto(Player player);
-
-    Player toEntity(PlayerDto playerDto);
-
-    List<PlayerDto> toDtoList(List<Player> players);
-
-    Set<PlayerDto> toDtoSet(List<Player> players);
-
-    Set<Player> toEntitySet(List<PlayerDto> players);
-
+public interface PlayerMapper extends BaseMapper<PlayerDto, Player> {
     void updateFromDto(PlayerUpdateDto dto, @MappingTarget Player player);
 }
